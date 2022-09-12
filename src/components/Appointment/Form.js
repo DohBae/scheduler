@@ -26,7 +26,7 @@ export default function Form(props) {
     ); 
   
   }
-  console.log(props.interviewers)
+  console.log(props)
   
   // console.log(interviewersArray)
   return (

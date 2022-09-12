@@ -1,4 +1,4 @@
-import { getAppointmentsForDay } from "helpers/selectors";
+import { getAppointmentsForDay, getInterviewsForDay } from "helpers/selectors";
 import { getInterview } from "helpers/selectors";
 
 const state = {
@@ -6,12 +6,14 @@ const state = {
     {
       id: 1,
       name: "Monday",
-      appointments: [1, 2, 3]
+      appointments: [1, 2, 3],
+      interviewers: [1, 2]
     },
     {
       id: 2,
       name: "Tuesday",
-      appointments: [4, 5]
+      appointments: [4, 5],
+      interviewers: [1, 2]
     }
   ],
   appointments: {
@@ -70,6 +72,33 @@ test("getAppointmentsForDay returns an empty array when the day is not found", (
 });
 
 
+test("getInterviewsForDay returns an array", () => {
+  const result = getInterviewsForDay(state, "Monday");
+  expect(Array.isArray(result)).toBe(true);
+});
+
+test("getInterviewsForDay returns an array with a length matching the number of Interviews for that day", () => {
+  const result = getInterviewsForDay(state, "Monday");
+  expect(result.length).toEqual(2);
+});
+
+test("getInterviewsForDay returns an array containing the correct appointment objects", () => {
+  const [first, second] = getInterviewsForDay(state, "Tuesday");
+  expect(first).toEqual(state.interviewers["1"]);
+  expect(second).toEqual(state.interviewers["2"]);
+});
+
+test("getInterviewsForDay returns an empty array when the days data is empty", () => {
+  const result = getInterviewsForDay({ days: [] }, "Monday");
+  expect(result.length).toEqual(0);
+});
+
+test("getInterviewsForDay returns an empty array when the day is not found", () => {
+  const result = getInterviewsForDay(state, "Wednesday");
+  expect(result.length).toEqual(0);
+});
+
+
 
 
 test("getInterview returns an object with the interviewer data", () => {
@@ -86,7 +115,9 @@ test("getInterview returns an object with the interviewer data", () => {
   );
 });
 
+
 test("getInterview returns null if no interview is booked", () => {
   const result = getInterview(state, state.appointments["2"].interview);
   expect(result).toBeNull();
 });
+

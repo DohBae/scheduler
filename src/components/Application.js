@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import DayList from "./DayList";
 import Appointment from "./Appointment";
-import { getAppointmentsForDay } from "helpers/selectors";
+import Form from "./Appointment/Form";
+import { getAppointmentsForDay, getInterview, getInterviewsForDay } from "helpers/selectors";
+
+
 
 import "components/Application.scss";
 
 
-// component declarations
 export default function Application(props) {
   
   const [state, setState] = useState({
@@ -17,22 +19,45 @@ export default function Application(props) {
     interviewers: {}
   });
   // const [dailyAppointments, setDailyAppointments] = useState([]);
-
   const appointments = getAppointmentsForDay(state, state.day)
+  const interviewers = getInterviewsForDay(state, state.day)
+  console.log(appointments)
+  
+  // const interviewersForm = interviewers.map((val) => {
+  //   return (
+  //     <Appointment
+  //       // key={val.id}
+  //       // id={val.id}
+  //       name={val.name}
+  //       avatar={val.avatar}
+  //     />,
 
-  const schedule = appointments.map((appointment) => {
-    const interview = getInterview(state, appointment.interview);
-  
-    return (
-      <Appointment
-        key={appointment.id}
-        id={appointment.id}
-        time={appointment.time}
-        interview={interview}
-      />
-    );
-  });
-  
+  //     <Form 
+  //       key={val.id}
+  //       id={val.id}
+  //       name={val.name}
+  //       avatar={val.avatar}
+  //     />
+  //   ); 
+  // });
+  // console.log("INTERVIEWERS FORM: ", interviewersForm)
+
+
+  // WHY IS THIS HERE???? WHY IS IT SPICY??????????????????????????????????????
+  // const schedule = appointments.map((appointment) => {
+  //   const interview = getInterview(state, appointment.interview);
+  //   return (
+  //     <Appointment
+  //       key={appointment.id}
+  //       id={appointment.id}
+  //       time={appointment.time}
+  //       interview={interview}
+  //     />
+      
+  //   );
+  // });
+
+  // console.log("SCHEDULE: ", schedule)
    
   // console.log("PROPS:", props)
   // console.log("--------------------------------------------------")
@@ -54,16 +79,6 @@ export default function Application(props) {
     })
   }, [])
   
-  // useEffect(() => {
-  //   if (state.days.length > 0) {
-  //     // setDailyAppointments(appts) 
-  //     setDailyAppointments(getAppointmentsForDay(state, state.day)) 
-  //   }
-
-  // }, [state.days])
-  // dailyAppointments = getAppointmentsForDay(state.day, setState) 
-  //   console.log("DAILY APPTS: ", dailyAppointments)
-
   
 
   return (
@@ -91,21 +106,16 @@ export default function Application(props) {
         />
       </section>
           <section className="schedule">
-            <Appointment schedule/>
-          <Appointment key="last" time="5pm" />
+          {appointments.map((appointment) => {
+            return <Appointment key={appointment.id}
+                                    {...appointment}
+                       interviewers={interviewers.map(item => item)}
+               />
+          })} 
+            <Appointment />
           </section>
 
     </main>
   );
 }
-// {dailyAppointments.map((appointment) => {
-//   // console.log("#################################")
-//   // console.log("APPOINTMENTS: ", appointment)
-//   // console.log("APPT KEY/ID: ", appointment.id)
-//   // console.log("APPT TIME: ", appointment.time)
-//   // console.log("APPT INTERVIEW: ", appointment.interview)
-//   // console.log("#################################")
-//   return <Appointment key={appointment.id}
-//                         {...appointment}
-//      />
-// })} 
+{/* <Appointment key="last" time="5pm" /> */}
