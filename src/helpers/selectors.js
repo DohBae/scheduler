@@ -41,6 +41,7 @@ export const getInterview = function(state, interview) {
     newObject[key2] = interviewerInfo
     newObject[key1] = interview.student
     
+    // console.log('INTERVIEWERINFO: ', interviewerInfo)
     const outputObject = newObject
 
     return outputObject

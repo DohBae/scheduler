@@ -6,8 +6,8 @@ export default function Form(props) {
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   // console.log(props)
-  console.log("STUDENT", student)
-  console.log("INTERVIEWER", interviewer)
+  // console.log("STUDENT", student)
+  // console.log("INTERVIEWER", interviewer)
 
   const reset = () => {
     return (
@@ -26,7 +26,7 @@ export default function Form(props) {
     ); 
   
   }
-  console.log(props)
+  // console.log(props)
   
   // console.log(interviewersArray)
   return (
@@ -43,8 +43,6 @@ export default function Form(props) {
           />
         </form>
         <InterviewerList
-        // onChange={intervie
-        // onChange={interviewersArray}
         interviewers={props.interviewers}
         value={interviewer}
         onChange={setInterviewer}
@@ -53,7 +51,7 @@ export default function Form(props) {
       <section className="appointment__card-right">
         <section className="appointment__actions">
           <Button danger onClick={cancel}>Cancel</Button>
-          <Button confirm onClick={props.onSave}>Save</Button>
+          <Button confirm onClick={() => props.onSave(student, interviewer)}>Save</Button>
         </section>
       </section>
     </main>

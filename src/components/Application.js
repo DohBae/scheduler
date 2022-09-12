@@ -21,7 +21,7 @@ export default function Application(props) {
   // const [dailyAppointments, setDailyAppointments] = useState([]);
   const appointments = getAppointmentsForDay(state, state.day)
   const interviewers = getInterviewsForDay(state, state.day)
-  console.log(appointments)
+  // console.log(appointments)
   
   // const interviewersForm = interviewers.map((val) => {
   //   return (
@@ -40,12 +40,11 @@ export default function Application(props) {
   //     />
   //   ); 
   // });
-  // console.log("INTERVIEWERS FORM: ", interviewersForm)
 
 
-  // WHY IS THIS HERE???? WHY IS IT SPICY??????????????????????????????????????
+  // WHY IS THIS HERE?????????????????????????????????????
   // const schedule = appointments.map((appointment) => {
-  //   const interview = getInterview(state, appointment.interview);
+  //  ;
   //   return (
   //     <Appointment
   //       key={appointment.id}
@@ -79,6 +78,20 @@ export default function Application(props) {
     })
   }, [])
   
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    setState({...state, appointments});
+    axios.put(`http://localhost:8001/api/appointments/${id}`, {interview}).then((res) => { 
+      setState(prev => ({...prev, res}))
+    })
+  }
   
 
   return (
@@ -107,15 +120,21 @@ export default function Application(props) {
       </section>
           <section className="schedule">
           {appointments.map((appointment) => {
+             const interview = getInterview(state, appointment.interview)
+            //  console.log('APPOINTMENT: ', appointment)
+            //  console.log('INTERVIEW: ', interview)
+            //  console.log({appointment, interview})
             return <Appointment key={appointment.id}
-                                    {...appointment}
+                                id={appointment.id}
+                              time={appointment.time}
+                         interview={interview}
                        interviewers={interviewers.map(item => item)}
-               />
-          })} 
-            <Appointment />
+                       bookInterview={bookInterview}
+                       />
+                      })} 
+            <Appointment key ="last" time="5pm"/>
           </section>
 
     </main>
   );
 }
-{/* <Appointment key="last" time="5pm" /> */}

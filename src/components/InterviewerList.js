@@ -6,7 +6,7 @@ import "components/InterviewerList.scss";
 export default function InterviewerList(props) {
   const interviewers = props.interviewers;
 
-  console.log("INTERVIEWER", interviewers)
+  // console.log("INTERVIEWER", interviewers)
 
   const interviewersArray = interviewers.map( interviewer => {
     const isSelected = interviewer.id === props.value

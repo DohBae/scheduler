@@ -12,7 +12,7 @@ const SHOW = "SHOW";
 const CREATE = "CREATE";
 
 export default function Appointment(props) {
-  console.log("PROPS: ", props)
+  // console.log("PROPS: ", props)
   // console.log("PROPS.STUDENT: ", props.interview.student)
 
   const { mode, transition, back } = useVisualMode(
@@ -20,6 +20,16 @@ export default function Appointment(props) {
   );
 // console.log("PROPS.STUDENT: ", props.student)
 // console.log("PROPS: ", props)
+
+function save(name, interviewer) {
+  const interview = {
+    student: name,
+    interviewer
+  };
+  props.bookInterview(props.id, interview);
+  transition(SHOW);
+}
+// console.log("PROPS.INTERVIEW: ", props.interview)
   return (
     <article className="appointment">
       <Header time={props.time}/>
@@ -35,6 +45,7 @@ export default function Appointment(props) {
         student={props.student}
         interviewers={props.interviewers}
         onCancel={() => back(EMPTY)}
+        onSave={save}
         />
 
       )}
