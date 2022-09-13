@@ -14,7 +14,10 @@ const SHOW = "SHOW";
 const CREATE = "CREATE";
 const SAVING = "SAVING";
 const DELETING = "DELETING";
-const CONFIRM = "CONFIRM"
+const CONFIRM = "CONFIRM";
+const EDIT = "EDIT";
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
 
 export default function Appointment(props) {
   // console.log("PROPS: ", props)
@@ -32,19 +35,20 @@ function save(name, interviewer) {
     student: name,
     interviewer
   };
-  // console.log("Saving...")
   transition(SAVING)
-  props.bookInterview(props.id, interview).then(() => transition(SHOW)); 
+  props.bookInterview(props.id, interview)
+  .then(() => transition(SHOW)) 
+  .catch(err => transition(ERROR_SAVE, true));
 }
 
 function deleteAppt() {
-  // const appointment = {
-  //   appointments: id
-  // }
   transition(DELETING)
-  props.cancelInterview(props.id).then(() => transition(EMPTY));
+  props.cancelInterview(props.id)
+  .then(() => transition(EMPTY))
+  .catch(err => transition(ERROR_DELETE, true));
 }
-// console.log("PROPS.INTERVIEW: ", props.interview)
+
+// console.log("PROPS: ", props)
   return (
     <article className="appointment">
       <Header time={props.time}/>
@@ -54,6 +58,7 @@ function deleteAppt() {
         student={props.interview.student}
         interviewer={props.interview.interviewer}
         onDelete={() => transition(CONFIRM)}
+        onEdit={() => transition(EDIT)}
         />
         )}
       {mode === CREATE && (
@@ -71,6 +76,16 @@ function deleteAppt() {
         />
         }
         {mode === DELETING && <Status message="Deleting"/>}
+        {mode === EDIT && <Form 
+        onCancel={() => back(SHOW)}
+        onSave={save}
+        student={props.interview.student}
+        interviewer={props.interview.interviewer.id}
+        interviewers={props.interviewers}
+        // student.defaultProps ={editDefaultProps}
+        // interviewer.defaultProps={editDefaultProps}
+        />
+        }
     </article>
   );
 }

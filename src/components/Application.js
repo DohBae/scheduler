@@ -92,13 +92,6 @@ export default function Application(props) {
     })
   }
   
-  // function cancelInterview(id) {
-  //   const deleteAppointment = {...state.appointments[id], interview: null}
-  //   setState({...state, deleteAppointment});
-  //   axios.delete(`http://localhost:8001/api/appointments/${id}`).then((res) => {
-  //   setState(prev => ({...prev, res}))  
-  // })
-  // }
 // console.log('STATE.APPTS: ', state)
   function cancelInterview(id) {
     const appointment = {
@@ -115,6 +108,8 @@ export default function Application(props) {
     // console.log("Deleting...")
   }
 
+
+  
   return (
     <main className="layout">
       <section className="sidebar">
@@ -152,6 +147,7 @@ export default function Application(props) {
                        interviewers={interviewers.map(item => item)}
                        bookInterview={bookInterview}
                        cancelInterview={cancelInterview}
+                       editInterview={bookInterview}
                        />
                       })} 
             <Appointment key ="last" time="5pm"/>
