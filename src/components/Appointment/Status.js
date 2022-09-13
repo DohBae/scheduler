@@ -1,6 +1,7 @@
 import React from "react";
 
 export default function Status(props) {
+  // console.log('PROPS: ', props)
   return (
     <main className="appointment__card appointment__card--status">
       <img
@@ -12,3 +13,5 @@ export default function Status(props) {
     </main>
   );
 }
+
+// onClick={props.onAdd}
