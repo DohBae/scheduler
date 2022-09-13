@@ -34,19 +34,15 @@ function save(name, interviewer) {
   };
   // console.log("Saving...")
   transition(SAVING)
-  props.bookInterview(props.id, interview);
-  transition(SHOW); 
+  props.bookInterview(props.id, interview).then(() => transition(SHOW)); 
 }
 
-function deleteAppt(id) {
+function deleteAppt() {
   // const appointment = {
   //   appointments: id
   // }
-  transition(SHOW)
-  props.cancelInterview(props.id)
-  transition(CONFIRM)
   transition(DELETING)
-  transition(EMPTY)
+  props.cancelInterview(props.id).then(() => transition(EMPTY));
 }
 // console.log("PROPS.INTERVIEW: ", props.interview)
   return (
@@ -57,7 +53,7 @@ function deleteAppt(id) {
         <Show
         student={props.interview.student}
         interviewer={props.interview.interviewer}
-        onDelete={deleteAppt}
+        onDelete={() => transition(CONFIRM)}
         />
         )}
       {mode === CREATE && (
@@ -69,12 +65,12 @@ function deleteAppt(id) {
         />
         )}
         {mode === SAVING && <Status message="Saving" />}
-        {mode === CONFIRM && <Confirm 
-          onConfirm={() => transition(DELETING)}
+        {mode === CONFIRM && <Confirm message="Are you sure you want to delete?"
+          onConfirm={deleteAppt}
           onCancel={() => back(SHOW)}
-        />}
+        />
+        }
         {mode === DELETING && <Status message="Deleting"/>}
     </article>
   );
 }
-// {mode === SAVING && <Status onClick={() => transition(SAVING)}/>}

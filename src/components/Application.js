@@ -87,9 +87,8 @@ export default function Application(props) {
       ...state.appointments,
       [id]: appointment
     };
-    setState({...state, appointments});
-    axios.put(`http://localhost:8001/api/appointments/${id}`, {interview}).then((res) => { 
-      setState(prev => ({...prev, res}))
+    return axios.put(`http://localhost:8001/api/appointments/${id}`, {interview}).then((res) => { 
+      setState({...state, appointments});
     })
   }
   
@@ -102,11 +101,16 @@ export default function Application(props) {
   // }
 // console.log('STATE.APPTS: ', state)
   function cancelInterview(id) {
-    let interviewObj= state.appointments[id].interview
-    axios.delete(`http://localhost:8001/api/appointments/${id}`).then((res) => {
-      interviewObj = null
-      setState(prev => ({...prev, interviewObj}))
-
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    return axios.delete(`http://localhost:8001/api/appointments/${id}`).then((res) => { 
+      setState({...state, appointments});
     })
     // console.log("Deleting...")
   }
