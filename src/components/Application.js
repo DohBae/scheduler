@@ -93,6 +93,23 @@ export default function Application(props) {
     })
   }
   
+  // function cancelInterview(id) {
+  //   const deleteAppointment = {...state.appointments[id], interview: null}
+  //   setState({...state, deleteAppointment});
+  //   axios.delete(`http://localhost:8001/api/appointments/${id}`).then((res) => {
+  //   setState(prev => ({...prev, res}))  
+  // })
+  // }
+// console.log('STATE.APPTS: ', state)
+  function cancelInterview(id) {
+    let interviewObj= state.appointments[id].interview
+    axios.delete(`http://localhost:8001/api/appointments/${id}`).then((res) => {
+      interviewObj = null
+      setState(prev => ({...prev, interviewObj}))
+
+    })
+    // console.log("Deleting...")
+  }
 
   return (
     <main className="layout">
@@ -130,6 +147,7 @@ export default function Application(props) {
                          interview={interview}
                        interviewers={interviewers.map(item => item)}
                        bookInterview={bookInterview}
+                       cancelInterview={cancelInterview}
                        />
                       })} 
             <Appointment key ="last" time="5pm"/>
