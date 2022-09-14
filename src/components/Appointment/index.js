@@ -6,6 +6,7 @@ import useVisualMode  from "hooks/useVisualMode";
 import Form from "./Form";
 import Status from "./Status";
 import Confirm from "./Confirm";
+import Error from "./Error";
 
 import "components/Appointment/styles.scss";
 
@@ -42,7 +43,7 @@ function save(name, interviewer) {
 }
 
 function deleteAppt() {
-  transition(DELETING)
+  transition(DELETING, true)
   props.cancelInterview(props.id)
   .then(() => transition(EMPTY))
   .catch(err => transition(ERROR_DELETE, true));
@@ -82,8 +83,16 @@ function deleteAppt() {
         student={props.interview.student}
         interviewer={props.interview.interviewer.id}
         interviewers={props.interviewers}
-        // student.defaultProps ={editDefaultProps}
-        // interviewer.defaultProps={editDefaultProps}
+        />
+        }
+        {mode === ERROR_SAVE && <Error 
+        message="Could not save the appointment."
+        onClose={() => back(EMPTY)}
+        />
+        }
+        {mode === ERROR_DELETE && <Error 
+        message="Could not cancel the appointment."
+        onClose={() => back(SHOW)}
         />
         }
     </article>
