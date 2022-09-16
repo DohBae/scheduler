@@ -6,9 +6,6 @@ export default function Form(props) {
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [error, setError] = useState("");
-  // console.log(props)
-  // console.log("STUDENT", student)
-  // console.log("INTERVIEWER", interviewer)
 
   const reset = () => {
     return (
@@ -48,9 +45,6 @@ export default function Form(props) {
     setError("");
     props.onSave(student, interviewer);
   }
-  // console.log(props)
-  
-  // console.log(interviewersArray)
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">

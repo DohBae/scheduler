@@ -23,8 +23,6 @@ export default function useApplicationData(props) {
   }, [])
 
   function bookInterview(id, interview) {
-    // console.log("ID: ", id)
-    // console.log("INTERVIEW: ", interview)
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -83,8 +81,6 @@ export default function useApplicationData(props) {
       setState({ ...state, appointments, days });
     })
   }
-
-// console.log("STATE: ", state) 
 
   return { state: state, setDay: setDay, bookInterview: bookInterview, cancelInterview: cancelInterview}
 }

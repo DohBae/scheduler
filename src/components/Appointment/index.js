@@ -27,8 +27,6 @@ export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
-// console.log("PROPS.STUDENT: ", props.student)
-// console.log("PROPS: ", props)
 
 function save(name, interviewer) {
   
@@ -49,7 +47,6 @@ function deleteAppt() {
   .catch(err => transition(ERROR_DELETE, true));
 }
 
-// console.log("PROPS: ", props)
   return (
     <article className="appointment" data-testid="appointment">
       <Header time={props.time}/>
