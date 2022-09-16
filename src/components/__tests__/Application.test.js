@@ -75,7 +75,7 @@ describe("Application", () => {
     const day = getAllByTestId(container, "day").find(day =>
       queryByText(day, "Monday")
     );
-    expect(getByText(day, "2 spots remaining")).toBeInTheDocument();
+    expect(getByText(day, "2 remaining")).toBeInTheDocument();
 
   });
 

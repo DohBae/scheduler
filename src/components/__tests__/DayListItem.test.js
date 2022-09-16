@@ -20,7 +20,7 @@ it("renders '1 spot remaining' when there is 1 spot", () => {
   expect(getByText("1 spot remaining")).toBeInTheDocument();
 });
 
-it("renders '2 spots remaining' when there are 2 spots", () => {
+it("renders '2 remaining' when there are 2 spots", () => {
   const { getByText } = render(<DayListItem name="Monday" spots={2} />);
-  expect(getByText("2 spots remaining")).toBeInTheDocument();
+  expect(getByText("2 remaining")).toBeInTheDocument();
 });
