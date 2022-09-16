@@ -36,12 +36,6 @@ export default function Form(props) {
       return;
     }
 
-    if (interviewer === true && student.length >=1 ) {
-      return (
-        <Button confirm onClick={() => props.onSave(student, interviewer)}>Save</Button>
-      )
-    }
-    
     setError("");
     props.onSave(student, interviewer);
   }
