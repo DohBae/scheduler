@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from 'axios';
+import React from "react";
 import DayList from "./DayList";
 import Appointment from "./Appointment";
 import { getAppointmentsForDay, getInterview, getInterviewsForDay } from "helpers/selectors";
@@ -11,14 +10,14 @@ import "components/Application.scss";
 
 
 export default function Application(props) {
-  
+
   const {
     state,
     setDay,
     bookInterview,
     cancelInterview
   } = useApplicationData();
-  
+
   const interviewers = getInterviewsForDay(state, state.day)
   const appointments = getAppointmentsForDay(state, state.day).map(
     appointment => {
@@ -34,7 +33,7 @@ export default function Application(props) {
       );
     }
   );
-  
+
   return (
     <main className="layout">
       <section className="sidebar">
@@ -59,10 +58,10 @@ export default function Application(props) {
           alt="Lighthouse Labs"
         />
       </section>
-          <section className="schedule">
-          {appointments}
-            <Appointment key ="last" time="5pm"/>
-          </section>
+      <section className="schedule">
+        {appointments}
+        <Appointment key="last" time="5pm" />
+      </section>
     </main>
   );
 }

@@ -10,19 +10,19 @@ export default function Form(props) {
   const reset = () => {
     return (
       setStudent(""),
-        setInterviewer(null)
+      setInterviewer(null)
 
-    );  
-    
+    );
+
   }
 
   const cancel = () => {
     return (
       reset(),
-        props.onCancel()
+      props.onCancel()
 
-    ); 
-  
+    );
+
   }
 
   function validate() {
@@ -52,12 +52,12 @@ export default function Form(props) {
             value={student}
             data-testid="student-name-input"
           />
-        <section className="appointment__validation">{error}</section>
+          <section className="appointment__validation">{error}</section>
         </form>
         <InterviewerList
-        interviewers={props.interviewers}
-        value={interviewer}
-        onChange={setInterviewer}
+          interviewers={props.interviewers}
+          value={interviewer}
+          onChange={setInterviewer}
         />
       </section>
       <section className="appointment__card-right">

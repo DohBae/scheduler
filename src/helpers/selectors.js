@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from "react";
-import axios from 'axios';
-import InterviewerList from "components/InterviewerList";
-
 
 export const getAppointmentsForDay = function(state, day) {
   const appointmentDay = state.days.find((item) => item.name === day)
   const appointments = [];
-  if (appointmentDay != undefined) {
+  if (appointmentDay !== undefined) {
     const appointmentsArray = appointmentDay.appointments
 
     appointmentsArray.forEach((appointment) => {
@@ -20,7 +16,7 @@ export const getAppointmentsForDay = function(state, day) {
 export const getInterviewsForDay = function(state, day) {
   const interviewDay = state.days.find((item) => item.name === day)
   const interviews = [];
-  if (interviewDay != undefined) {
+  if (interviewDay !== undefined) {
     const interviewsArray = interviewDay.interviewers
 
     interviewsArray.forEach((interview) => {
@@ -32,7 +28,7 @@ export const getInterviewsForDay = function(state, day) {
 };
 
 export const getInterview = function(state, interview) {
-  
+
   if (interview != null) {
     const interviewerInfo = Object.values(state.interviewers).find(item => item.id === interview.interviewer)
     const newObject = {}
@@ -40,7 +36,7 @@ export const getInterview = function(state, interview) {
     var key2 = "interviewer"
     newObject[key2] = interviewerInfo
     newObject[key1] = interview.student
-    
+
     const outputObject = newObject
 
     return outputObject
